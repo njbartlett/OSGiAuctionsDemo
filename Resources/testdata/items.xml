@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="ASCII"?>
+<xmi:XMI xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:org.example.auction="http:///org/example/auction.ecore">
+  <org.example.auction:AuctionItem description="China plate" startingPrice="10">
+    <bids href="file:/Users/neil/Projects/AuctionsJAX2/org.example.auction.ui/./bids.xml#/0"/>
+    <bids href="file:/Users/neil/Projects/AuctionsJAX2/org.example.auction.ui/./bids.xml#/1"/>
+    <bids href="file:/Users/neil/Projects/AuctionsJAX2/org.example.auction.ui/./bids.xml#/2"/>
+  </org.example.auction:AuctionItem>
+  <org.example.auction:AuctionItem description="Telephone" startingPrice="100"/>
+  <org.example.auction:AuctionItem description="Jam jar" startingPrice="1"/>
+</xmi:XMI>
