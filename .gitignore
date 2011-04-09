@@ -1,0 +1,12 @@
+# Eclipse stuff
+/.metadata
+
+# Bndtools outputs
+/*/bin
+/*/bin_test
+/*/generated
+/cnf/cache
+
+# General junk
+*~
+.DS_Store

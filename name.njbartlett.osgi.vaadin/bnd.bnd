@@ -1,0 +1,16 @@
+-buildpath: osgi.cmpn,\
+	osgi.core,\
+	com.vaadin,\
+	javax.servlet,\
+	biz.aQute.bnd.annotation
+-sub: *.bnd
+-runbundles: org.apache.felix.shell,\
+	org.apache.felix.shell.tui,\
+	org.apache.felix.scr,\
+	org.apache.felix.configadmin,\
+	org.apache.felix.http.jetty,\
+	org.apache.felix.metatype,\
+	org.apache.felix.webconsole,\
+	com.vaadin,\
+	javax.servlet
+-runfw: org.apache.felix.framework

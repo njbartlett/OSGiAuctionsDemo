@@ -1,0 +1,3 @@
+Export-Package: name.njbartlett.osgi.vaadin.util
+Private-Package: name.njbartlett.osgi.vaadin
+Service-Component: *
