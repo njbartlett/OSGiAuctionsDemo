@@ -11,12 +11,23 @@ import com.vaadin.ui.TabSheet;
 public class DynamicTabSheet extends ConcurrentComponent {
 	
 	private static final long serialVersionUID = 1L;
+	
+	@SuppressWarnings("rawtypes")
+	private final SelectionSupport selectionSupport;
 	private final Map<ComponentFactory, ComponentInstance> componentInstanceMap = new IdentityHashMap<ComponentFactory, ComponentInstance>();
 	private final Map<ComponentFactory, Component> tabMap = new IdentityHashMap<ComponentFactory, Component>();
 	
 	private final TabSheet tabs = new TabSheet();
 	
 	private String lastTabName = null;
+	
+	public DynamicTabSheet() {
+		this(null);
+	}
+
+	public DynamicTabSheet(SelectionSupport<?> selectionSupport) {
+		this.selectionSupport = selectionSupport;
+	}
 	
 	@Override
 	public void attach() {
@@ -43,7 +54,7 @@ public class DynamicTabSheet extends ConcurrentComponent {
 			if (o != null && o instanceof Component) {
 				Component c = (Component) o;
 				synchronized (synchronizer()) {
-					tabs.addTab(c);
+					addTab(c);
 					tabMap.put(factory, c);
 					componentInstanceMap.put(factory, ci);
 					
@@ -59,6 +70,16 @@ public class DynamicTabSheet extends ConcurrentComponent {
 			e.printStackTrace();
 		}
 	}
+	
+	@SuppressWarnings({ "unchecked", "rawtypes" })
+	public void addTab(Component component) {
+		tabs.addTab(component);
+		if (selectionSupport != null && component instanceof SelectionListener) {
+			SelectionListener listener = (SelectionListener) component;
+			selectionSupport.addSelectionListener(listener);
+		}
+	}
+	
 	public void unbindTab(ComponentFactory factory) {
 		ComponentInstance ci;
 		Component c;
@@ -70,7 +91,7 @@ public class DynamicTabSheet extends ConcurrentComponent {
 				if (c == tabs.getSelectedTab())
 					lastTabName = c.getCaption();
 				
-				tabs.removeComponent(c);
+				removeTab(c);
 				c.detach();
 			}
 		}
@@ -78,4 +99,14 @@ public class DynamicTabSheet extends ConcurrentComponent {
 		if (ci != null)
 			ci.dispose();
 	}
+	
+	@SuppressWarnings({ "rawtypes", "unchecked" })
+	public void removeTab(Component component) {
+		tabs.removeComponent(component);
+		if (selectionSupport != null && component instanceof SelectionListener) {
+			SelectionListener listener = (SelectionListener) component;
+			selectionSupport.removeSelectionListener(listener);
+		}
+	}
+	
 }

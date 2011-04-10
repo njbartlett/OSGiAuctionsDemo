@@ -1,8 +1,9 @@
-package org.example.auctions.ui;
+package org.example.auction.ui;
 
 import java.util.Map;
 
 import name.njbartlett.osgi.vaadin.util.ConcurrentComponent;
+import name.njbartlett.osgi.vaadin.util.SelectionSupport;
 
 import org.example.auction.IAuctionService;
 
@@ -32,7 +33,7 @@ public class AuctionListPanel extends ConcurrentComponent {
 		this(null);
 	}
 	
-	public AuctionListPanel(final PropertyChangeSupport propChangeSupport) {
+	public AuctionListPanel(final SelectionSupport<IAuctionService> selectionSupport) {
 		auctions = new IndexedContainer();
 		auctions.addContainerProperty(PID_NAME, String.class, null);
 		auctions.addContainerProperty(PID_AUCTION_REF, IAuctionService.class, null);
@@ -62,11 +63,15 @@ public class AuctionListPanel extends ConcurrentComponent {
 				
 				selection = item != null ? (IAuctionService) item.getItemProperty(PID_AUCTION_REF).getValue() : null;
 			
-				if (propChangeSupport != null)
-					propChangeSupport.firePropertyChange("selectedAuction", old, selection);
+				if (selectionSupport != null)
+					selectionSupport.setSelection(selection);
 			}
 		});
 		setCompositionRoot(mainPanel);
+	}
+	
+	public void addAuction(IAuctionService auction, Map<String, Object> properties) {
+		addAuction(auction, (String) properties.get("label"));
 	}
 	
 	public void addAuction(final IAuctionService auction, final String caption) {

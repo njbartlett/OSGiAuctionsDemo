@@ -1,9 +1,10 @@
-package org.example.auctions.ui.buy;
+package org.example.auction.ui.buy;
 
 import java.util.Collection;
 import java.util.concurrent.atomic.AtomicReference;
 
 import name.njbartlett.osgi.vaadin.util.ConcurrentComponent;
+import name.njbartlett.osgi.vaadin.util.SelectionListener;
 
 import org.example.auction.AuctionFactory;
 import org.example.auction.AuctionItem;
@@ -202,8 +203,7 @@ public class BuyTab extends ConcurrentComponent implements SelectionListener<IAu
 
 
 	@Override
-	public void propertyChange(PropertyChangeEvent evt) {
-		if ("selectedAuction".equals(evt.getPropertyName()))
-			setAuctionService((IAuctionService) evt.getNewValue());
+	public void selectionChanged(IAuctionService selection) {
+		setAuctionService(selection);
 	}
 }
