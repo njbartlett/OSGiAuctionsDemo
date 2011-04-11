@@ -1,6 +1,11 @@
 package org.example.auction.ui;
 
+import java.util.Map;
+
+import org.example.auction.IAuctionService;
+
 import aQute.bnd.annotation.component.Component;
+import aQute.bnd.annotation.component.Reference;
 
 import com.vaadin.Application;
 import com.vaadin.terminal.ClassResource;
@@ -35,5 +40,17 @@ public class DemoApplication extends Application {
 		
 		return layout;
 	}
+
+	@Reference(type = '*')
+	public void addAuction(IAuctionService auction,
+			Map<String, Object> properties) {
+		auctionListPanel.addAuction(auction, properties);
+	}
+
+	public void removeAuction(IAuctionService auction) {
+		auctionListPanel.removeAuction(auction);
+	}
+	
+	
 
 }
