@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<genmodel:GenModel xmi:version="2.0"
+    xmlns:xmi="http://www.omg.org/XMI" xmlns:ecore="http://www.eclipse.org/emf/2002/Ecore"
+    xmlns:genmodel="http://www.eclipse.org/emf/2002/GenModel" modelDirectory="/org.example.auction/src"
+    modelPluginID="org.example.auction" modelName="Auction" updateClasspath="false"
+    importerID="org.eclipse.emf.importer.java" bundleManifest="false" complianceLevel="6.0"
+    copyrightFields="false">
+  <foreignModel>@model</foreignModel>
+  <genPackages prefix="Auction" basePackage="org.example" disposableProviderFactory="true"
+      ecorePackage="auction.ecore#/">
+    <genClasses ecoreClass="auction.ecore#//AuctionItem">
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute auction.ecore#//AuctionItem/description"/>
+      <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference auction.ecore#//AuctionItem/bids"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute auction.ecore#//AuctionItem/expiryDate"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute auction.ecore#//AuctionItem/startingPrice"/>
+    </genClasses>
+    <genClasses ecoreClass="auction.ecore#//Bid">
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute auction.ecore#//Bid/price"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute auction.ecore#//Bid/date"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute auction.ecore#//Bid/userId"/>
+      <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference auction.ecore#//Bid/auctionItem"/>
+    </genClasses>
+  </genPackages>
+</genmodel:GenModel>
