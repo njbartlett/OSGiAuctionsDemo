@@ -1,0 +1,2 @@
+Private-Package: org.example.auction.ui
+Service-Component: *
