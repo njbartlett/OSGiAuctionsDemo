@@ -9,7 +9,8 @@
 	name.njbartlett.osgi.vaadin.core;version=latest,\
 	org.example.auction;version=latest,\
 	name.njbartlett.osgi.emf.minimal,\
-	name.njbartlett.osgi.emf.xmi
+	name.njbartlett.osgi.emf.xmi,\
+	org.example.auction.server;version=latest
 -runfw: org.apache.felix.framework
 -buildpath: osgi.core,\
 	osgi.cmpn,\
