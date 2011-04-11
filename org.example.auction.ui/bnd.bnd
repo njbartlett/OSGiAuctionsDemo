@@ -6,11 +6,17 @@
 	org.apache.felix.http.jetty,\
 	org.apache.felix.webconsole,\
 	com.vaadin,\
-	name.njbartlett.osgi.vaadin.core;version=latest
+	name.njbartlett.osgi.vaadin.core;version=latest,\
+	org.example.auction;version=latest,\
+	name.njbartlett.osgi.emf.minimal,\
+	name.njbartlett.osgi.emf.xmi
 -runfw: org.apache.felix.framework
 -buildpath: osgi.core,\
 	osgi.cmpn,\
 	biz.aQute.bnd.annotation,\
 	junit.osgi,\
-	com.vaadin
+	com.vaadin,\
+	name.njbartlett.osgi.vaadin.core;version=latest,\
+	name.njbartlett.osgi.emf.minimal,\
+	org.example.auction;version=latest
 -sub: *.bnd
