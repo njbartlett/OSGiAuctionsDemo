@@ -10,3 +10,6 @@
 # General junk
 *~
 .DS_Store
+org.example.auction/build.properties
+org.example.auction/plugin.properties
+org.example.auction/plugin.xml

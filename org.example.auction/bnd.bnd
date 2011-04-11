@@ -1,0 +1,4 @@
+-buildpath: name.njbartlett.osgi.emf.minimal
+Export-Package: org.example.auction,\
+	org.example.auction.impl,\
+	org.example.auction.util
