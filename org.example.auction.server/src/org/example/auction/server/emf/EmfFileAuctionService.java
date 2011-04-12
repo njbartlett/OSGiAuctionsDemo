@@ -3,6 +3,7 @@ package org.example.auction.server.emf;
 import java.io.File;
 import java.io.IOException;
 import java.util.Collection;
+import java.util.HashMap;
 import java.util.Map;
 import java.util.concurrent.atomic.AtomicReference;
 
@@ -21,6 +22,8 @@ import org.example.auction.AuctionPackage;
 import org.example.auction.Bid;
 import org.example.auction.IAuctionService;
 import org.osgi.framework.Constants;
+import org.osgi.service.event.Event;
+import org.osgi.service.event.EventAdmin;
 import org.osgi.service.log.LogService;
 
 import aQute.bnd.annotation.component.Activate;
@@ -54,6 +57,7 @@ public class EmfFileAuctionService implements IAuctionService {
 	
 	private final ResourceSet resourceSet = new ResourceSetImpl();
 	private final AtomicReference<LogService> logSvcRef = new AtomicReference<LogService>();
+	private final AtomicReference<EventAdmin> eventAdminRef = new AtomicReference<EventAdmin>();
 	private Resource auctionItemsResource;
 	private Resource bidsResource;
 	private String pid;
@@ -113,6 +117,15 @@ public class EmfFileAuctionService implements IAuctionService {
 
 	void fireItemAdded(AuctionItem item) {
 		saveResource(auctionItemsResource);
+		
+		String uri = EcoreUtil.getURI(item).toString();
+		Map<String, Object> props = new HashMap<String, Object>();
+		props.put("auctionItemId", uri);
+		
+		Event event = new Event("Auctions/Items/" + pid.replace('.', '_'), props);
+		EventAdmin evtAdmin = eventAdminRef.get();
+		if (evtAdmin != null)
+			evtAdmin.postEvent(event);
 	}
 
 	void fireBidAdded(Bid bid) {
@@ -161,6 +174,15 @@ public class EmfFileAuctionService implements IAuctionService {
 	
 	protected void unbindLog(LogService log) {
 		logSvcRef.compareAndSet(log, null);
+	}
+	
+	@Reference(type = '?')
+	protected void bindEventAdmin(EventAdmin eventAdmin) {
+		eventAdminRef.set(eventAdmin);
+	}
+	
+	protected void unbindEventAdmin(EventAdmin eventAdmin) {
+		eventAdminRef.compareAndSet(eventAdmin, null);
 	}
 
 }
