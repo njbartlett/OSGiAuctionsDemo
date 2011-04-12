@@ -3,6 +3,7 @@ package org.example.auction.ui;
 import java.util.Map;
 
 import name.njbartlett.osgi.vaadin.util.DynamicTabSheet;
+import name.njbartlett.osgi.vaadin.util.SelectionSupport;
 
 import org.example.auction.IAuctionService;
 import org.osgi.service.component.ComponentFactory;
@@ -20,8 +21,9 @@ import com.vaadin.ui.Window;
 @Component(factory = "com.vaadin.Application/auction")
 public class DemoApplication extends Application {
 	
-	private final AuctionListPanel auctionListPanel = new AuctionListPanel();
-	private final DynamicTabSheet tabs = new DynamicTabSheet();
+	private final SelectionSupport<IAuctionService> selectionSupport = new SelectionSupport<IAuctionService>();
+	private final AuctionListPanel auctionListPanel = new AuctionListPanel(selectionSupport);
+	private final DynamicTabSheet tabs = new DynamicTabSheet(selectionSupport);
 
 	@Override
 	public void init() {
