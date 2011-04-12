@@ -11,7 +11,9 @@
 	name.njbartlett.osgi.emf.minimal,\
 	name.njbartlett.osgi.emf.xmi,\
 	org.example.auction.server.basic;version=latest,\
-	org.example.auction.server.emffile;version=latest
+	org.example.auction.server.emffile;version=latest,\
+	org.apache.felix.eventadmin,\
+	org.apache.felix.log
 -runfw: org.apache.felix.framework
 -buildpath: osgi.core,\
 	osgi.cmpn,\

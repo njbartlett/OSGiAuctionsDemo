@@ -10,6 +10,7 @@ import org.example.auction.AuctionFactory;
 import org.example.auction.AuctionItem;
 import org.example.auction.Bid;
 import org.example.auction.IAuctionService;
+import org.osgi.service.event.EventHandler;
 
 import com.vaadin.data.Property.ValueChangeEvent;
 import com.vaadin.data.Property.ValueChangeListener;
@@ -29,8 +30,9 @@ import com.vaadin.ui.VerticalLayout;
 import com.vaadin.ui.Window;
 import com.vaadin.ui.Window.Notification;
 
-@aQute.bnd.annotation.component.Component(factory = "com.vaadin.Component/auctionTab")
-public class BuyTab extends ConcurrentComponent implements SelectionListener<IAuctionService> {
+@aQute.bnd.annotation.component.Component(factory = "com.vaadin.Component/auctionTab",
+	properties = { "event.topics=Auctions/Items/*" })
+public class BuyTab extends ConcurrentComponent implements SelectionListener<IAuctionService>, EventHandler {
 	
 	private final AtomicReference<IAuctionService> auctionSvcRef = new AtomicReference<IAuctionService>();
 	
@@ -205,5 +207,19 @@ public class BuyTab extends ConcurrentComponent implements SelectionListener<IAu
 	@Override
 	public void selectionChanged(IAuctionService selection) {
 		setAuctionService(selection);
+	}
+
+	@Override
+	public void handleEvent(org.osgi.service.event.Event event) {
+		String itemId = (String) event.getProperty("auctionItemId");
+		if (itemId != null) {
+			IAuctionService service = auctionSvcRef.get();
+			if (service != null) {
+				AuctionItem item = service.findItem(itemId);
+				if (item != null) {
+					items.addBean(item);
+				}
+			}
+		}
 	}
 }
