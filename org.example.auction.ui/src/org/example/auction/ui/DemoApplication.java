@@ -2,7 +2,10 @@ package org.example.auction.ui;
 
 import java.util.Map;
 
+import name.njbartlett.osgi.vaadin.util.DynamicTabSheet;
+
 import org.example.auction.IAuctionService;
+import org.osgi.service.component.ComponentFactory;
 
 import aQute.bnd.annotation.component.Component;
 import aQute.bnd.annotation.component.Reference;
@@ -18,16 +21,24 @@ import com.vaadin.ui.Window;
 public class DemoApplication extends Application {
 	
 	private final AuctionListPanel auctionListPanel = new AuctionListPanel();
+	private final DynamicTabSheet tabs = new DynamicTabSheet();
 
 	@Override
 	public void init() {
 		VerticalLayout layout = new VerticalLayout();
 		layout.setMargin(true);
 		layout.setSpacing(true);
-		
 		layout.addComponent(createBanner());
-		layout.addComponent(auctionListPanel);
 		
+		HorizontalLayout main = new HorizontalLayout();
+		main.setSpacing(true);
+		main.setSizeFull();
+		layout.addComponent(main);
+		main.addComponent(auctionListPanel);
+		main.setExpandRatio(auctionListPanel, .3f);
+		main.addComponent(tabs);
+		main.setExpandRatio(tabs, .7f);
+
 		setMainWindow(new Window("Demo App", layout));
 	}
 	
@@ -49,6 +60,15 @@ public class DemoApplication extends Application {
 
 	public void removeAuction(IAuctionService auction) {
 		auctionListPanel.removeAuction(auction);
+	}
+
+	@Reference(type = '*', target = "(component.factory=com.vaadin.Component/auctionTab)")
+	public void bindTab(ComponentFactory factory) {
+		tabs.bindTab(factory);
+	}
+
+	public void unbindTab(ComponentFactory factory) {
+		tabs.unbindTab(factory);
 	}
 	
 	
