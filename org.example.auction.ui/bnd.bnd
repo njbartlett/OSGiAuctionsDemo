@@ -10,7 +10,8 @@
 	org.example.auction;version=latest,\
 	name.njbartlett.osgi.emf.minimal,\
 	name.njbartlett.osgi.emf.xmi,\
-	org.example.auction.server;version=latest
+	org.example.auction.server.basic;version=latest,\
+	org.example.auction.server.emffile;version=latest
 -runfw: org.apache.felix.framework
 -buildpath: osgi.core,\
 	osgi.cmpn,\
@@ -20,4 +21,4 @@
 	name.njbartlett.osgi.vaadin.core;version=latest,\
 	name.njbartlett.osgi.emf.minimal,\
 	org.example.auction;version=latest
--sub: *.bnd
+-sub: *.bnd 

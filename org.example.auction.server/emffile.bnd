@@ -1,0 +1,3 @@
+Private-Package: org.example.auction.server.emf,\
+	aQute.bnd.annotation.metatype
+Service-Component: *
