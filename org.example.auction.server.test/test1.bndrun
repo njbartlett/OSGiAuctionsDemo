@@ -1,0 +1,9 @@
+-runfw: org.apache.felix.framework
+-runbundles: name.njbartlett.osgi.emf.minimal,\
+	name.njbartlett.osgi.emf.xmi,\
+	org.apache.felix.eventadmin,\
+	org.apache.felix.scr,\
+	org.mockito.mockito-all,\
+	org.example.auction.server.emffile;version=latest,\
+	org.example.auction;version=latest,\
+	osgi.cmpn

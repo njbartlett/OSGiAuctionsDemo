@@ -1,0 +1,8 @@
+Test-Cases: ${classes;CONCRETE;EXTENDS;junit.framework.TestCase}
+-buildpath: osgi.core;version=[4.1','5),\
+	osgi.cmpn,\
+	junit.osgi,\
+	org.example.auction;version=latest,\
+	name.njbartlett.osgi.emf.minimal,\
+	org.mockito.mockito-all
+Private-Package: org.example.auction.server.tests
